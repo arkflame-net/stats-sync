@@ -1,0 +1,6 @@
+name: StatsSync
+main: com.arkflame.statssync.StatsSync
+version: 0.0.1
+author: ArkFlame
+api: "1.13"
+api-version: "1.13"
