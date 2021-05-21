@@ -1,8 +1,8 @@
-package com.statssync.listeners.initializers;
+package com.arkflame.statssync.listeners.initializers;
 
-import com.statssync.listeners.PlayerDeathListener;
-import com.statssync.listeners.PlayerJoinListener;
-import com.statssync.listeners.PlayerQuitListener;
+import com.arkflame.statssync.listeners.PlayerDeathListener;
+import com.arkflame.statssync.listeners.PlayerJoinListener;
+import com.arkflame.statssync.listeners.PlayerQuitListener;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
