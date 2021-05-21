@@ -10,7 +10,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class PlayerDeathListener implements Listener {
-private MongoDBController mongoDBController;
+    private MongoDBController mongoDBController;
+
+    public PlayerDeathListener(final MongoDBController mongoDBController) {
+        this.mongoDBController = mongoDBController;
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onPlayerDeath(final PlayerDeathEvent event) {
@@ -19,7 +23,7 @@ private MongoDBController mongoDBController;
         final int killedDeaths = killed.getStatistic(Statistic.DEATHS);
         final int killerKills = killed.getStatistic(Statistic.PLAYER_KILLS);
 
-        mongoDBController.setStat("users", killed.getUniqueId(), Statistic.DEATHS, killedDeaths);
-        mongoDBController.setStat("users", killer.getUniqueId(), Statistic.PLAYER_KILLS, killerKills);
+        mongoDBController.setStat(killed.getUniqueId(), Statistic.DEATHS, killedDeaths);
+        mongoDBController.setStat(killer.getUniqueId(), Statistic.PLAYER_KILLS, killerKills);
     }
 }

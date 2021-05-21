@@ -6,14 +6,17 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
 
 // Cointains all the logic for the SQLConnection
 public class MongoDBController extends MongoDBConnection {
+    private final String statsTable;
     private final String databaseName;
 
     public MongoDBController(final String databaseName) {
         super(databaseName);
+        this.statsTable = "players_" + Bukkit.getServerName();
         this.databaseName = databaseName;
     }
 
@@ -39,17 +42,25 @@ public class MongoDBController extends MongoDBConnection {
         }
     }
 
-    public void setStat(final String collectionName, final UUID uuid, final Statistic statistic, final int value) {
-        final Document document = find(collectionName, uuid);
+    public void setStat(final UUID uuid, final Statistic statistic, final int value) {
+        final Document document = find(statsTable, uuid);
 
         document.put(statistic.toString(), value);
 
-        findOneAndUpdate(collectionName, uuid, document);
+        findOneAndUpdate(statsTable, uuid, document);
     }
 
-    public int getStat(final String collectionName, final UUID uuid, final Statistic statistic) {
-        final Document document = find(collectionName, uuid);
+    public int getStat(final UUID uuid, final Statistic statistic) {
+        final Document document = find(statsTable, uuid);
 
         return document.getInteger(statistic.toString());
+    }
+
+    public Document getPlayer(final UUID uuid) {
+        return find(statsTable, uuid);
+    }
+
+    public void setPlayer(String string, UUID uuid, Document document) {
+        findOneAndUpdate(statsTable, uuid, document);
     }
 }

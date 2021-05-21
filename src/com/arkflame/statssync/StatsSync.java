@@ -1,6 +1,7 @@
 package com.arkflame.statssync;
 
 import com.arkflame.statssync.listeners.initializers.ListenerInitializer;
+import com.arkflame.statssync.mongodb.MongoDBController;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -10,7 +11,10 @@ public class StatsSync extends JavaPlugin {
     @Override
     public void onEnable() {
         StatsSync.instance = this;
-        ListenerInitializer.initialize(this);
+
+        final MongoDBController mongoDBController = new MongoDBController("arkflame");
+
+        ListenerInitializer.initialize(this, mongoDBController);
     }
 
     public static StatsSync getInstance() {
